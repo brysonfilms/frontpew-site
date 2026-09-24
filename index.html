@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Front Pew: watch sermons, take notes, keep them</title>
+  <meta name="description" content="Watch any sermon and take notes on the same screen, and keep it for good. Front Pew is a sermon notebook for iPhone and iPad. No account. Launching soon.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FFF8EE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15122B" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Front Pew: watch sermons, take notes, keep them">
+  <meta property="og:description" content="Watch any sermon and take notes on the same screen, and keep it for good. No account. Launching soon on iPhone and iPad.">
+  <meta property="og:type" content="website">
+  <!-- OWNER: once the site has a real address, add these two lines with that address filled in
+       (link previews need a full address, and this site makes no outside requests until you add one):
+       <link rel="canonical" href="FULL-ADDRESS-OF-THIS-PAGE">
+       <meta property="og:image" content="FULL-ADDRESS-OF/img/icon-180.png">
+  -->
+  <link rel="icon" type="image/png" href="img/icon-64.png">
+  <link rel="apple-touch-icon" href="img/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
+
+<!-- Icons for the starters. Drawn here so nothing loads from anywhere else. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-heading" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="5.5" rx="2"/><rect x="3" y="12" width="18" height="3" rx="1.5"/><rect x="3" y="18" width="12" height="3" rx="1.5"/></symbol>
+  <symbol id="i-point" viewBox="0 0 24 24"><rect x="2.5" y="4" width="4" height="4" rx="2"/><rect x="9" y="4.5" width="12.5" height="3" rx="1.5"/><rect x="2.5" y="10" width="4" height="4" rx="2"/><rect x="9" y="10.5" width="12.5" height="3" rx="1.5"/><rect x="2.5" y="16" width="4" height="4" rx="2"/><rect x="9" y="16.5" width="12.5" height="3" rx="1.5"/></symbol>
+  <symbol id="i-verse" viewBox="0 0 24 24"><path d="M2 5.2c3.4-1.5 6.4-1.3 9 .6v14c-2.6-1.9-5.6-2.1-9-.6z"/><path d="M22 5.2c-3.4-1.5-6.4-1.3-9 .6v14c2.6-1.9 5.6-2.1 9-.6z"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M3 18v-6c0-4.2 2.3-6.6 6.5-7v3.2C7.7 8.6 6.8 9.7 6.8 11.5H10V18z"/><path d="M13.5 18v-6c0-4.2 2.3-6.6 6.5-7v3.2c-1.8.4-2.7 1.5-2.7 3.3h3.2V18z"/></symbol>
+  <symbol id="i-todo" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 12.4l2.9 3 5.3-6.4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-question" viewBox="0 0 24 24"><path d="M7.8 8.6a4.3 4.3 0 1 1 6.6 3.6c-1.6 1-2.3 1.8-2.3 3.4" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><rect x="10" y="18.2" width="4.2" height="4.2" rx="2.1"/></symbol>
+  <symbol id="i-prayer" viewBox="0 0 24 24"><path d="M12 21C5 15.6 2 12.3 2 8.5a5 5 0 0 1 10-1.8A5 5 0 0 1 22 8.5c0 3.8-3 7.1-10 12.5z"/></symbol>
+  <symbol id="i-big" viewBox="0 0 24 24"><path d="M12 2.4l2.9 6.2 6.7.8-4.9 4.7 1.3 6.7-6-3.3-6 3.3 1.3-6.7L2.4 9.4l6.7-.8z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.8l4.4 4.6L19 6.8" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="sheet">
+
+  <header class="top">
+    <a class="wordmark" href="index.html" aria-label="Front Pew, home">
+      <span class="pip" aria-hidden="true">
+        <svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg>
+      </span>
+      Front Pew
+    </a>
+    <nav aria-label="On this page">
+      <ul>
+        <li class="wide"><a href="#how">How it works</a></li>
+        <li class="wide"><a href="#leaders">Pastors and parents</a></li>
+        <li class="wide"><a href="#faq">Questions</a></li>
+        <li><a class="btn btn-card" href="#waitlist">Waitlist</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. HERO -->
+    <section class="row first" aria-labelledby="h-hero">
+      <div class="margin" aria-hidden="true">
+        <span class="pip b2"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Sit up front.</p>
+      </div>
+      <div class="body hero">
+        <div>
+          <p class="eyebrow">Watch. Write. Keep.</p>
+          <h1 id="h-hero">
+            <span>Watch any sermon.</span>
+            <span>Take notes on the same screen.</span>
+            <span class="keep">Keep it for good.</span>
+          </h1>
+          <div class="ruled">
+            <p>Front Pew plays the sermon at the top of your page. You write underneath. Then it goes on your shelf, notes and all. It&rsquo;s still there on Tuesday. It&rsquo;s still there next year.</p>
+          </div>
+          <div class="cta">
+            <a class="btn" href="#waitlist">Save my seat</a>
+            <p class="soon">Launching soon on iPhone and iPad.</p>
+          </div>
+          <ul class="facts" aria-label="The short version">
+            <li>Free at launch</li>
+            <li>No account</li>
+            <li>No ads</li>
+            <li>No data collected</li>
+          </ul>
+        </div>
+        <figure class="device">
+          <img src="img/notes-hero.png" width="520" height="1130" alt="A note page in Front Pew called Peace With God, with a Romans 5:3-4 verse button under the title and typed notes on lined paper. Above the keyboard is a row of one-tap starters: a camera, Heading, Point and Verse.">
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2. HOW IT WORKS -->
+    <section class="row" id="how" aria-labelledby="h-how">
+      <div class="margin" aria-hidden="true">
+        <span class="pip b3"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Scoot in. It&rsquo;s 3 steps.</p>
+      </div>
+      <div class="body">
+        <p class="eyebrow">How it works</p>
+        <h2 id="h-how">Find it. Watch and write. Keep.</h2>
+        <ol class="steps">
+          <li class="step">
+            <div>
+              <div class="num" aria-hidden="true">1</div>
+              <h3>Find the sermon.</h3>
+              <div class="ruled">
+                <p>Search by preacher, church or topic, or paste a link. A podcast or your church&rsquo;s own site works too, and the title, speaker and picture fill themselves in.</p>
+                <p>Sat in the room instead? Tap &ldquo;I was there in person.&rdquo;</p>
+              </div>
+            </div>
+            <figure class="device device-small">
+              <img src="img/add-link.png" width="520" height="1130" loading="lazy" alt="The add screen. It asks: What are we watching? At the top is Search for a sermon, with a box for a preacher, a church or a topic. Below it you can paste a link instead, or say you were there in person.">
+            </figure>
+          </li>
+          <li class="step">
+            <div>
+              <div class="num" aria-hidden="true">2</div>
+              <h3>Watch and write on one screen.</h3>
+              <div class="ruled">
+                <p>The video plays up top, in YouTube&rsquo;s own player. Your page sits right under it. Type, or write with Apple Pencil on lined paper.</p>
+                <p>Tap a starter and keep going. It saves as you write. On an iPad turned sideways, the video sits beside the page.</p>
+              </div>
+            </div>
+            <figure class="device device-small">
+              <img src="img/notepad.png" width="520" height="1130" loading="lazy" alt="A note page called Peace With God, with typed notes on lined paper and a Romans 5:3-4 verse button at the top. Above the keyboard is a row of starters: a camera, Heading, Point and Verse.">
+            </figure>
+          </li>
+          <li class="step">
+            <div>
+              <div class="num" aria-hidden="true">3</div>
+              <h3>Keep it. Find it later.</h3>
+              <div class="ruled">
+                <p>The sermon goes on your shelf with your notes, the verses and a study guide. Nothing gets lost in a camera roll.</p>
+                <p>Months later, ask &ldquo;anything on anxiety?&rdquo; Front Pew finds the sermon and the line you wrote.</p>
+              </div>
+            </div>
+            <figure class="device device-small">
+              <img src="img/ask.png" width="520" height="1130" loading="lazy" alt="The Ask screen. Someone typed: anything on anxiety? Front Pew answers that it found 3 sermons that fit and quotes the person's own note. Below are the 3 sermons: Do Not Be Anxious, Peace With God and The Lord Is My Shepherd.">
+            </figure>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 3. WHAT ELSE, WRITTEN AS A NOTE WITH THE APP'S OWN STARTERS -->
+    <section class="row" id="starters" aria-labelledby="h-starters">
+      <div class="margin margin-label" aria-hidden="true">
+        <p class="eyebrow">Starters</p>
+      </div>
+      <div class="body">
+        <p class="eyebrow">What else is in it</p>
+        <h2 id="h-starters">The rest, as a page of notes.</h2>
+        <p class="lede" style="margin-bottom:2rem">In the app, starters ride above the keyboard. One tap drops in a heading, a point, a verse. So here&rsquo;s everything else, written the same way.</p>
+
+        <ul class="note ruled">
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-heading"/></svg>Heading</span>
+            <p class="line"><strong>Sunday notes, live.</strong> A blank page opens at once. No link first, no form. Start writing when the sermon starts.</p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-point"/></svg>Point</span>
+            <p class="line"><strong>Type it or write it.</strong> Apple Pencil or a finger. Lined, dotted, grid or blank paper, in 5 colours. Snap a photo of the slide and it lands on the page.</p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-verse"/></svg>Verse</span>
+            <p class="line"><strong>Tap a verse to read it.</strong> Write <span class="verse-ref">Romans 5:3-4</span> and Front Pew spots it. Tap to read it, then drop it into your notes. World English Bible.</p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-quote"/></svg>Quote</span>
+            <p class="line"><q>What was that sermon about grace?</q> Ask finds it by meaning, speaker, book of the Bible or date. It only looks through your own shelf.</p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-todo"/></svg>To do</span>
+            <p class="line">
+              <label class="todo"><input type="checkbox"><span class="box" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><span>Live it this week.</span></label>
+              One step from Sunday, waiting on Home. Tick it when it&rsquo;s done. Go on, tick it.
+            </p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-question"/></svg>Question</span>
+            <p class="line"><strong>What&rsquo;s my church in right now?</strong> Follow your church with one tap. New sermons show up on Home, with the series you&rsquo;re in. The list is short and it ends.</p>
+          </li>
+          <li>
+            <span class="chip"><svg aria-hidden="true" focusable="false"><use href="#i-big"/></svg>Big idea</span>
+            <p class="line"><strong>A study guide, made on your device.</strong> The gist, the points, key verses, questions to talk over and 1 step. Every guide says what made it. Verses are looked up, never made up.</p>
+          </li>
+        </ul>
+
+        <div class="pad">
+          <div class="pad-head">
+            <h3 id="h-pad">Try the starters.</h3>
+            <p id="pad-help">Tap one and it lands on a fresh line, the way it does in the app. This page is only for playing. Nothing you type here is saved or sent.</p>
+          </div>
+          <label class="vh" for="pad-text">A practice note page</label>
+          <textarea id="pad-text" rows="6" spellcheck="true" aria-describedby="pad-help" placeholder="Start typing, or tap a starter below."></textarea>
+          <div class="starters" role="group" aria-label="Starters">
+            <button type="button" data-before="# "><svg aria-hidden="true" focusable="false"><use href="#i-heading"/></svg>Heading</button>
+            <button type="button" data-before="&bull; "><svg aria-hidden="true" focusable="false"><use href="#i-point"/></svg>Point</button>
+            <button type="button" data-before="&#x1F4D6; "><svg aria-hidden="true" focusable="false"><use href="#i-verse"/></svg>Verse</button>
+            <button type="button" data-before="&ldquo;" data-after="&rdquo;"><svg aria-hidden="true" focusable="false"><use href="#i-quote"/></svg>Quote</button>
+            <button type="button" data-before="&#x2610; "><svg aria-hidden="true" focusable="false"><use href="#i-todo"/></svg>To do</button>
+            <button type="button" data-before="? "><svg aria-hidden="true" focusable="false"><use href="#i-question"/></svg>Question</button>
+            <button type="button" data-before="&#x1F64F; "><svg aria-hidden="true" focusable="false"><use href="#i-prayer"/></svg>Prayer</button>
+            <button type="button" data-before="&#x2B50; "><svg aria-hidden="true" focusable="false"><use href="#i-big"/></svg>Big idea</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. THE WEEKLY RHYTHM -->
+    <section class="row" id="rhythm" aria-labelledby="h-rhythm">
+      <div class="margin" aria-hidden="true">
+        <span class="pip"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Tuesday counts.</p>
+      </div>
+      <div class="body pair">
+        <div>
+          <p class="eyebrow">A gentle rhythm</p>
+          <h2 id="h-rhythm" style="margin-bottom:1.25rem">Weeks, not days. Never a guilt trip.</h2>
+          <p class="tag-gold">Grace weeks included</p>
+          <div class="ruled">
+            <p>Hear 1 sermon in a week and that week counts. Sunday morning counts. So does a sermon on a Tuesday night.</p>
+            <p>Busy week? Camp? Flu? A grace week covers it, quietly. That&rsquo;s what they&rsquo;re for. The number of sermons you&rsquo;ve kept only goes up.</p>
+            <p>In December, Rewind plays your year back. The sermons, the verses, the lines that stuck.</p>
+          </div>
+        </div>
+        <div class="shots">
+          <figure class="device">
+            <picture>
+              <source srcset="img/home-dark.png" media="(prefers-color-scheme: dark)">
+              <img src="img/home.png" width="520" height="1130" loading="lazy" alt="The Home screen. It says 5 weeks running, this week is still open, with a row of 8 weeks shown as green check marks. Below: your church is in Romans: Good News, you've caught 5 of 8, and a gold Live it this week card.">
+            </picture>
+          </figure>
+          <figure class="device">
+            <img src="img/rewind.png" width="520" height="1130" loading="lazy" alt="A page from Rewind, the year-end story. It says: You showed up. 12 sermons on your shelf. Pip sits in the top corner.">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. YOUTH PASTORS AND PARENTS -->
+    <section class="row" id="leaders" aria-labelledby="h-leaders">
+      <div class="margin" aria-hidden="true">
+        <span class="pip b2"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Room for the whole row.</p>
+      </div>
+      <div class="body">
+        <div class="insert">
+          <p class="eyebrow">For youth pastors and parents</p>
+          <h2 id="h-leaders">Phones out, for once.</h2>
+          <p class="lede">Front Pew is a notebook, not a network. Here&rsquo;s what it leaves out, on purpose.</p>
+          <ul class="nos">
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No accounts.</strong><span>Nothing to sign up for. No email, no birthday, no password to explain to a parent.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No chat. No friends list.</strong><span>No comments, no messages, no profiles. Nobody can contact a student through it.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No ads. No tracking.</strong><span>No analytics either. We don&rsquo;t know who uses it or how.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No data collected.</strong><span>Notes, handwriting and photos stay on the device. We run no server that receives them.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No endless feed.</strong><span>New sermons from your church are a short list that ends. Nothing plays by itself.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>The player can&rsquo;t wander.</strong><span>Sermons play in YouTube&rsquo;s own player. It can&rsquo;t browse. Links that leave it open in Safari.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>Study help that doesn&rsquo;t preach.</strong><span>Guides work from the student&rsquo;s own notes and say what made them. Verses are looked up, never made up.</span></div></li>
+            <li><span class="tick" aria-hidden="true"><svg focusable="false"><use href="#i-check"/></svg></span><div><strong>No scolding.</strong><span>It says what a student did. It never mentions what they didn&rsquo;t.</span></div></li>
+          </ul>
+          <p class="ask-leader"><strong>Wednesday night idea:</strong> open with &ldquo;What did Sunday say?&rdquo; Students pull up their own notes. You get a real answer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. THE PRIVACY PROMISE -->
+    <section class="row promise" id="privacy" aria-labelledby="h-privacy">
+      <div class="margin" aria-hidden="true">
+        <span class="pip b3"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">I&rsquo;m furniture. I don&rsquo;t listen.</p>
+      </div>
+      <div class="body">
+        <p class="eyebrow">The privacy promise</p>
+        <h2 id="h-privacy">No account. <span>Notes stay on this phone.</span></h2>
+        <p class="lede">There&rsquo;s no microphone recording the room and no server reading your notes. Here&rsquo;s the whole picture, including the few times the app talks to the internet.</p>
+        <div class="ledger">
+          <section aria-labelledby="h-stays">
+            <h3 id="h-stays">Stays on your device</h3>
+            <ul>
+              <li>Every sermon you save, and every note.</li>
+              <li>Your handwriting and photos of slides.</li>
+              <li>Study guides and answers, made on the device.</li>
+              <li>Reminders. They&rsquo;re created on the device too.</li>
+              <li>Delete the app and it all goes with it. You can export first.</li>
+            </ul>
+          </section>
+          <section aria-labelledby="h-goes">
+            <h3 id="h-goes">Goes out, only when you ask</h3>
+            <ul>
+              <li>Search sends your words to YouTube to find videos. Paste a link and the app fetches its public title and picture from that site.</li>
+              <li>Press play and the video comes from YouTube, in its privacy-enhanced player. YouTube may set cookies then.</li>
+              <li>Tap a verse and the app asks bible-api.com for it. Only the reference is sent.</li>
+              <li>An optional cloud study helper exists. It&rsquo;s off unless you turn it on, after reading exactly what it sends.</li>
+            </ul>
+          </section>
+        </div>
+        <p class="more"><a href="privacy.html">Read the full privacy policy</a>. It&rsquo;s short.</p>
+      </div>
+    </section>
+
+    <!-- 7. FAQ (the same questions are on support.html: keep the two in step) -->
+    <section class="row" id="faq" aria-labelledby="h-faq">
+      <div class="margin" aria-hidden="true">
+        <span class="pip"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Good seat for questions.</p>
+      </div>
+      <div class="body">
+        <p class="eyebrow">Questions</p>
+        <h2 id="h-faq">Fair questions.</h2>
+        <div class="faq">
+          <details>
+            <summary>When does it launch?</summary>
+            <div class="a"><p>Soon. There&rsquo;s no date to promise yet, so we won&rsquo;t make one up. The waitlist gets one email, the day it&rsquo;s out.</p></div>
+          </details>
+          <details>
+            <summary>What does it cost?</summary>
+            <div class="a"><p>It&rsquo;s free at launch.</p></div>
+          </details>
+          <details>
+            <summary>Do I need an account?</summary>
+            <div class="a"><p>No. There isn&rsquo;t one to make. Open the app and start writing.</p></div>
+          </details>
+          <details>
+            <summary>Which sermons can I watch in it?</summary>
+            <div class="a"><p>Any sermon on YouTube plays at the top of your note page. Podcast links and church website links are saved too, with their title and picture, and open where they live.</p><p>If you heard it in person, tap &ldquo;I was there in person&rdquo; and take notes the same way.</p></div>
+          </details>
+          <details>
+            <summary>Does it download videos or record the sermon?</summary>
+            <div class="a"><p>No. Front Pew keeps the link and your notes. Video plays in YouTube&rsquo;s own player. It never uses the microphone to record the room.</p></div>
+          </details>
+          <details>
+            <summary>What does the AI do? Is it safe for students?</summary>
+            <div class="a"><p>It makes a study guide from a sermon&rsquo;s details and your own notes, and it helps Ask find things. That work happens on the device. Every guide says what made it, so check it against the sermon.</p><p>It never speaks as the pastor. Verses are found in the text you wrote, never invented. A cloud helper is optional and stays off unless someone turns it on after reading what it sends.</p></div>
+          </details>
+          <details>
+            <summary>What if a week goes by without a sermon?</summary>
+            <div class="a"><p>A grace week covers it, quietly. You earn them by keeping your rhythm. The app won&rsquo;t bring it up. Next time you open it, Pip says &ldquo;Saved you a seat.&rdquo;</p></div>
+          </details>
+          <details>
+            <summary>Does it work with iPad and Apple Pencil?</summary>
+            <div class="a"><p>Yes. Write by hand on lined, dotted, grid or blank paper. Turn the iPad sideways and the video sits beside your page.</p></div>
+          </details>
+          <details>
+            <summary>Which Bible does tap-a-verse use?</summary>
+            <div class="a"><p>The World English Bible, which is in the public domain.</p></div>
+          </details>
+          <details>
+            <summary>Can I get my notes out?</summary>
+            <div class="a"><p>Yes. Share any note as plain text, or export your whole library.</p></div>
+          </details>
+          <details>
+            <summary>Is there an Android version?</summary>
+            <div class="a"><p>Not right now. Front Pew is for iPhone and iPad.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. WAITLIST -->
+    <section class="row" id="waitlist" aria-labelledby="h-waitlist">
+      <div class="margin" aria-hidden="true">
+        <span class="pip pip-big b2" id="seat-pip"><svg viewBox="0 0 100 100" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg></span>
+        <p class="pip-says">Saved you a seat.</p>
+      </div>
+      <div class="body">
+        <div class="seat">
+          <p class="eyebrow">Launching soon</p>
+          <h2 id="h-waitlist">Saved you a seat.</h2>
+          <p class="lede">Leave an email and get one message, the day Front Pew is out. That&rsquo;s the only thing we&rsquo;ll use it for.</p>
+
+          <p><a class="btn btn-grape" href="mailto:brysonhenry4@gmail.com?subject=Tell%20me%20when%20Front%20Pew%20is%20out">Tell me when it&rsquo;s out</a></p>
+          <p class="honest">One message, the day it lands on the App Store. Nothing else, ever.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="line">
+      <button class="pip" type="button" id="foot-pip" aria-label="Make Pip hop">
+        <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"><rect class="pip-lip" x="17" y="72.5" width="11" height="17" rx="4"/><rect class="pip-lip" x="72" y="72.5" width="11" height="17" rx="4"/><rect class="pip-body" x="14" y="18" width="72" height="44" rx="13"/><rect class="pip-lip" x="6" y="62.5" width="88" height="15" rx="7"/><rect class="pip-body" x="6" y="61.5" width="88" height="12" rx="6"/><rect class="pip-face pip-eye" x="35.5" y="30.75" width="7" height="8.5" rx="3.5"/><rect class="pip-face pip-eye" x="57.5" y="30.75" width="7" height="8.5" rx="3.5"/><path class="pip-smile" d="M41.5 43Q50 56.3 58.5 43"/><path class="pip-sparkle" d="M90 0Q91.6 8.4 100 10Q91.6 11.6 90 20Q88.4 11.6 80 10Q88.4 8.4 90 0Z"/></svg>
+      </button>
+      <div>Front Pew<small id="foot-says" aria-live="polite">The best seat for every sermon you&rsquo;ve ever heard.</small></div>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="#waitlist">Launch email</a></li>
+      </ul>
+    </nav>
+    <p class="fine">The people, churches and sermons in the library screens are made-up sample data. Front Pew isn&rsquo;t affiliated with YouTube or any church shown. iPhone, iPad and Apple Pencil are trademarks of Apple Inc. YouTube is a trademark of Google LLC.</p>
+  </footer>
+
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>

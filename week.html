@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Front Pew: this week</title>
+  <meta name="description" content="This week's sermon, questions and readings from your group. Open it in Front Pew to keep it.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FFF4E3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15122B" media="(prefers-color-scheme: dark)">
+  <!-- The pack rides in the #fragment, so it never reaches a server. Only the
+       YouTube player is framed; nothing else is loaded from anywhere. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self'; frame-src https://www.youtube-nocookie.com; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="img/icon-64.png">
+  <link rel="apple-touch-icon" href="img/icon-180.png">
+  <style>
+    /* Tokens from App/Design/Theme.swift. Flat colour only: no gradients, no
+       blur, no decorative shapes. Punch is ONLY the one primary button; mango
+       is only the challenge and always carries dark ink. */
+    :root {
+      color-scheme: light dark;
+      --paper: #FFF4E3;
+      --card: #FFFFFF;
+      --card-lip: #E6D8C3;
+      --well: #F5E8D3;
+      --ink: #1B1535;
+      --ink2: #5C5578;
+      --ink3: #746D93;
+      --grape: #5B4BFF;
+      --grape-lip: #3D2FD6;
+      --grape-text: #4A3BEB;
+      --grape-wash: #E9E6FF;
+      --punch: #F0464D;
+      --punch-lip: #C42F37;
+      --mango: #FFB800;
+      --mango-lip: #D99400;
+      --mint: #10A887;
+      --mint-lip: #0B866C;
+      --on-mango: #1B1535;
+      --focus: #3D2FD6;
+      --radius: 24px;
+      --font: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #15122B;
+        --card: #211C40;
+        --card-lip: #0E0B1F;
+        --well: #2B2552;
+        --ink: #F6F2FF;
+        --ink2: #B9B2DA;
+        --ink3: #8E87B3;
+        --grape: #7C6FFF;
+        --grape-lip: #4E41D9;
+        --grape-text: #A59BFF;
+        --grape-wash: #2A2363;
+        --punch: #F4595F;
+        --punch-lip: #B8383F;
+        --mango: #FFC42E;
+        --mango-lip: #C9920A;
+        --mint: #1FBF9B;
+        --mint-lip: #128A70;
+        --focus: #FFC42E;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+    main { max-width: 560px; margin: 0 auto; padding: 24px 16px 40px; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+    .eyebrow { margin: 0 0 6px; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grape-text); }
+    h1 { margin: 0; font-size: 30px; line-height: 1.15; font-weight: 900; letter-spacing: -0.01em; }
+    .week-of { margin: 6px 0 0; font-size: 14px; font-weight: 600; color: var(--ink3); }
+
+    section { margin-top: 28px; }
+    h2 { margin: 0 0 10px; font-size: 20px; font-weight: 850; }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 5px 0 var(--card-lip);
+      padding: 18px 16px;
+    }
+
+    .player {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 5px 0 var(--card-lip);
+    }
+    .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .watch-link { display: inline-block; margin-top: 16px; color: var(--grape-text); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* Outline: plain text, headings, and fill-in blanks. */
+    .outline p { margin: 0 0 8px; }
+    .outline p:last-child { margin-bottom: 0; }
+    .outline h3 { margin: 16px 0 6px; font-size: 18px; font-weight: 850; color: var(--grape-text); }
+    .outline h3:first-child { margin-top: 0; }
+    .outline .gap { height: 8px; }
+    .blank {
+      width: 8ch;
+      min-width: 8ch;
+      max-width: 100%;
+      margin: 0 2px;
+      padding: 0 2px;
+      font: inherit;
+      font-size: 17px;           /* 16px+ so iOS doesn't zoom on focus */
+      font-weight: 700;
+      color: var(--grape-text);
+      background: var(--grape-wash);
+      border: 0;
+      border-bottom: 2px solid var(--grape);
+      border-radius: 6px 6px 0 0;
+      vertical-align: baseline;
+    }
+
+    ol.questions { margin: 0; padding: 0; list-style: none; counter-reset: q; }
+    ol.questions li { counter-increment: q; position: relative; padding-left: 34px; margin-bottom: 12px; }
+    ol.questions li:last-child { margin-bottom: 0; }
+    ol.questions li::before {
+      content: counter(q);
+      position: absolute; left: 0; top: 1px;
+      width: 24px; height: 24px; border-radius: 8px;
+      background: var(--grape); color: #fff;
+      font-size: 14px; font-weight: 900; line-height: 24px; text-align: center;
+    }
+
+    ul.days { margin: 0; padding: 0; list-style: none; }
+    ul.days li { margin-bottom: 12px; }
+    ul.days li:last-child { margin-bottom: 0; }
+    .day {
+      display: flex; align-items: flex-start; gap: 12px;
+      width: 100%;
+      padding: 14px 14px;
+      font: inherit; color: inherit; text-align: left;
+      background: var(--card);
+      border: 0;
+      border-radius: 20px;
+      box-shadow: 0 5px 0 var(--card-lip);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .day:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--card-lip); }
+    .tick {
+      flex: none;
+      width: 30px; height: 30px; border-radius: 10px;
+      border: 3px solid var(--card-lip);
+      background: var(--well);
+      color: #fff; font-weight: 900; font-size: 18px; line-height: 24px; text-align: center;
+    }
+    .day[aria-pressed="true"] .tick { background: var(--mint); border-color: var(--mint-lip); }
+    .day-text { display: block; min-width: 0; }
+    .day-label { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink3); }
+    .day-ref { display: block; font-size: 18px; font-weight: 850; color: var(--grape-text); }
+    .day-prompt { display: block; margin-top: 2px; color: var(--ink2); }
+    .day[aria-pressed="true"] .day-label::after { content: " \00B7  done"; }
+
+    .challenge {
+      background: var(--mango);
+      color: var(--on-mango);
+      border-radius: var(--radius);
+      box-shadow: 0 5px 0 var(--mango-lip);
+      padding: 18px 16px;
+    }
+    .challenge .eyebrow { color: var(--on-mango); }
+    .challenge p { margin: 0; font-size: 19px; font-weight: 800; line-height: 1.35; }
+
+    .actions { margin-top: 36px; text-align: center; }
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 20px;
+      background: var(--punch);
+      color: #fff;
+      font-size: 19px; font-weight: 900;
+      text-decoration: none;
+      box-shadow: 0 5px 0 var(--punch-lip);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-primary:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--punch-lip); }
+    .get-app { display: inline-block; margin-top: 16px; padding: 6px 8px; color: var(--grape-text); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+    .privacy { margin: 20px 0 0; font-size: 14px; font-weight: 600; color: var(--ink3); text-align: center; }
+
+    .empty { margin-top: 18vh; text-align: center; }
+    .empty h1 { font-size: 26px; }
+    .empty p { margin: 12px auto 0; max-width: 30ch; color: var(--ink2); }
+
+    [hidden] { display: none !important; }
+    @media (prefers-reduced-motion: reduce) { .day:active, .btn-primary:active { transform: none; } }
+  </style>
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <noscript>
+      <div class="empty">
+        <h1>This week needs JavaScript</h1>
+        <p>Turn it on for this page, or open the link in Front Pew.</p>
+      </div>
+    </noscript>
+  </main>
+
+<script>
+(function () {
+  "use strict";
+
+  // TODO(owner): replace with the real App Store URL once Front Pew is listed.
+  var APP_STORE_URL = "#app-store";
+
+  // Must match WeekPack.swift: maxBytes = 2400. The raw param may be up to
+  // maxBytes * 3 characters; a z= pack may inflate to maxBytes * 4 bytes.
+  var MAX_PAYLOAD = 7200;
+  var MAX_INFLATED = 9600;
+  var APP_BASE = "frontpew://week?";
+
+  // ---------- decode (mirrors WeekPack.read + clipped) ----------
+
+  // The pack's query item from #z=/#p= or ?z=/?p=, read by hand so a stray
+  // "+" is not turned into a space the way URLSearchParams would. z (deflated)
+  // wins over p, like the app's encoder prefers it.
+  function rawParam(s) {
+    s = s || "";
+    var names = ["z", "p"];
+    for (var i = 0; i < names.length; i++) {
+      var m = new RegExp("(?:^|[?#&])" + names[i] + "=([^&#]*)").exec(s);
+      if (m) {
+        try { return { name: names[i], value: decodeURIComponent(m[1]) }; } catch (e) { return null; }
+      }
+    }
+    return null;
+  }
+
+  // base64url (or standard base64) -> bytes, or null. Same as Swift unb64url.
+  function b64urlToBytes(b64) {
+    if (typeof b64 !== "string" || !b64 || b64.length > MAX_PAYLOAD) return null;
+    if (!/^[A-Za-z0-9+/_-]+={0,2}$/.test(b64)) return null;
+    var s = b64.replace(/-/g, "+").replace(/_/g, "/").replace(/=+$/, "");
+    while (s.length % 4 !== 0) s += "=";
+    var bin;
+    try { bin = atob(s); } catch (e) { return null; }
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return bytes;
+  }
+
+  function canInflate() {
+    if (typeof DecompressionStream === "undefined") return false;
+    try { new DecompressionStream("deflate-raw"); return true; } catch (e) { return false; }
+  }
+
+  // Raw DEFLATE (Apple's NSData .zlib is RFC 1951, no header) -> bytes, or
+  // null. Stops reading as soon as the output passes MAX_INFLATED, so a
+  // zip bomb costs nothing.
+  async function inflateRaw(bytes) {
+    var ds = new DecompressionStream("deflate-raw");
+    var writer = ds.writable.getWriter();
+    writer.write(bytes).catch(function () {});
+    writer.close().catch(function () {});
+    var reader = ds.readable.getReader();
+    var chunks = [], total = 0;
+    try {
+      for (;;) {
+        var r = await reader.read();
+        if (r.done) break;
+        total += r.value.length;
+        if (total > MAX_INFLATED) { reader.cancel().catch(function () {}); return null; }
+        chunks.push(r.value);
+      }
+    } catch (e) { return null; }
+    var out = new Uint8Array(total), at = 0;
+    chunks.forEach(function (c) { out.set(c, at); at += c.length; });
+    return out;
+  }
+
+  function utf8(bytes) {
+    try { return new TextDecoder("utf-8", { fatal: true }).decode(bytes); } catch (e) { return null; }
+  }
+
+  // Grapheme-aware prefix, like Swift's String.prefix(n).
+  function prefixChars(s, n) {
+    var parts;
+    if (typeof Intl !== "undefined" && Intl.Segmenter) {
+      parts = [];
+      var it = new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(s);
+      for (var seg of it) { if (parts.length >= n) break; parts.push(seg.segment); }
+    } else {
+      parts = Array.from(s).slice(0, n);
+    }
+    return parts.join("");
+  }
+
+  function str(v) { return typeof v === "string" ? v : ""; }
+
+  // Swift clipped(): newlines -> space, trim spaces/tabs, cut to n characters.
+  function cut(v, n) {
+    var s = str(v).replace(/\r\n|\r|\n/g, " ").replace(/^[ \t]+|[ \t]+$/g, "");
+    return prefixChars(s, n);
+  }
+
+  // Swift clipped() for the outline: drop \r, trim and cut each line to 160,
+  // collapse runs of blank lines (and leading ones), stop at 40 lines, trim
+  // the whole, cut to 1500 characters. Returns the lines.
+  function clipOutline(v) {
+    var lines = [];
+    var src = str(v).replace(/\r/g, "").split("\n");
+    for (var i = 0; i < src.length; i++) {
+      var l = prefixChars(src[i].replace(/^[ \t]+|[ \t]+$/g, ""), 160);
+      if (!l && (lines.length === 0 || !lines[lines.length - 1])) continue;
+      lines.push(l);
+      if (lines.length === 40) break;
+    }
+    var s = prefixChars(lines.join("\n").replace(/^\s+|\s+$/g, ""), 1500);
+    return s ? s.split("\n") : [];
+  }
+
+  // Safe.fetchable: http(s), a host, no credentials, not a private/local host.
+  function safeWeb(raw) {
+    raw = str(raw).trim();
+    if (!raw || raw.length >= 2048) return null;
+    var u;
+    try { u = new URL(raw); } catch (e) { return null; }
+    if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+    if (!u.hostname || u.username || u.password) return null;
+    var h = u.hostname.toLowerCase().replace(/\.+$/, "");
+    if (/^(0x[0-9a-f]+|\d+)(\.(0x[0-9a-f]+|\d+))*$/.test(h) && !/^\d{1,3}(\.\d{1,3}){3}$/.test(h)) return null;
+    if (h === "localhost" || /\.local$/.test(h) || /\.internal$/.test(h) || h.charAt(0) === "[") return null;
+    var p = h.split(".").map(Number);
+    if (p.length === 4 && p.every(function (x) { return Number.isInteger(x); })) {
+      if (p[0] === 10 || p[0] === 127 || p[0] === 0 || (p[0] === 172 && p[1] >= 16 && p[1] <= 31) || (p[0] === 192 && p[1] === 168) || (p[0] === 169 && p[1] === 254)) return null;
+      return u;
+    }
+    return h.indexOf(".") >= 0 ? u : null;
+  }
+
+  function youtubeId(u) {
+    if (!u) return null;
+    var h = u.hostname.toLowerCase().replace(/^(www\.|m\.|music\.)/, "");
+    var id = null;
+    if (h === "youtu.be") {
+      id = u.pathname.split("/")[1] || null;
+    } else if (h === "youtube.com" || h === "youtube-nocookie.com") {
+      if (u.pathname === "/watch") id = u.searchParams.get("v");
+      else {
+        var m = /^\/(live|shorts|embed)\/([^/?#]+)/.exec(u.pathname);
+        if (m) id = m[2];
+      }
+    }
+    return id && /^[A-Za-z0-9_-]{11}$/.test(id) ? id : null;
+  }
+
+  // Query item {name: "z"|"p", value} -> clean pack, or null. Every string is
+  // outside input.
+  async function decodePack(item) {
+    if (!item || (item.name !== "z" && item.name !== "p")) return null;
+    var bytes = b64urlToBytes(item.value);
+    if (!bytes) return null;
+    if (item.name === "z") {
+      bytes = await inflateRaw(bytes);
+      if (!bytes) return null;
+    } else if (bytes.length > MAX_INFLATED) {
+      return null;
+    }
+    var text = utf8(bytes);
+    if (text === null) return null;
+    var raw;
+    try { raw = JSON.parse(text); } catch (e) { return null; }
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+
+    var p = {
+      title: cut(raw.title, 120),
+      from: cut(raw.from, 60),
+      challenge: cut(raw.challenge, 200),
+      questions: (Array.isArray(raw.questions) ? raw.questions : []).slice(0, 5).map(function (q) { return cut(q, 180); }).filter(Boolean),
+      days: (Array.isArray(raw.days) ? raw.days : []).slice(0, 5).map(function (d) {
+        d = d && typeof d === "object" ? d : {};
+        return { ref: cut(d.ref, 40), prompt: cut(d.prompt, 160) };
+      }).filter(function (d) { return d.ref; }),
+      outline: clipOutline(raw.outline),
+      weekOf: typeof raw.weekOf === "number" && isFinite(raw.weekOf) ? raw.weekOf : null,
+      link: null,
+      youtube: null
+    };
+
+    var link = str(raw.link).trim();
+    if (link) {
+      var u = safeWeb(link);
+      if (!u) return null;                      // Swift refuses the whole pack here too
+      p.youtube = youtubeId(u);
+      if (!p.youtube && u.protocol === "https:") p.link = u.href;
+    }
+    if (!p.title && !p.days.length && !p.outline.length) return null;
+    return p;
+  }
+
+  // ---------- storage (this phone only) ----------
+
+  function hash(s) {                             // FNV-1a, 32-bit
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193); }
+    return (h >>> 0).toString(16);
+  }
+  function load(key) {
+    try { var v = JSON.parse(localStorage.getItem(key) || "null"); return v && typeof v === "object" ? v : {}; }
+    catch (e) { return {}; }
+  }
+  function save(key, obj) {
+    try { localStorage.setItem(key, JSON.stringify(obj)); } catch (e) { /* private mode: fine */ }
+  }
+
+  // ---------- render (textContent only) ----------
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function renderEmpty(root, appHref) {
+    var box = el("div", "empty");
+    if (appHref) {
+      // A z= pack on a browser too old to inflate it (before Safari 16.4 /
+      // Chrome 103): the app can still read it.
+      box.appendChild(el("h1", null, "Open this one in Front Pew"));
+      box.appendChild(el("p", null, "This browser can't unpack this week. The Front Pew app can."));
+      var act = el("div", "actions");
+      var open = el("a", "btn-primary", "Open in Front Pew");
+      open.href = appHref;
+      act.appendChild(open);
+      var get = el("a", "get-app", "Get Front Pew");
+      get.href = APP_STORE_URL;
+      act.appendChild(get);
+      box.appendChild(act);
+    } else {
+      box.appendChild(el("h1", null, "Hmm, this week is missing"));
+      box.appendChild(el("p", null, "This link didn't come through whole. Ask your leader to send it again."));
+    }
+    root.appendChild(box);
+    document.title = "Front Pew";
+  }
+
+  var renderSeq = 0;
+  async function render() {
+    var seq = ++renderSeq;
+    var root = document.getElementById("app");
+
+    var item = rawParam(location.hash) || rawParam(location.search);
+    var canonical = item && typeof item.value === "string" && /^[A-Za-z0-9+/_-]+={0,2}$/.test(item.value) && item.value.length <= MAX_PAYLOAD
+      ? item.value.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "") : null;
+    var appHref = canonical ? APP_BASE + item.name + "=" + canonical : null;
+
+    if (item && item.name === "z" && !canInflate()) {
+      root.replaceChildren(); renderEmpty(root, appHref); return;
+    }
+    var pack = null;
+    try { pack = canonical ? await decodePack(item) : null; } catch (e) { pack = null; }
+    if (seq !== renderSeq) return;               // a newer hash arrived meanwhile
+    root.replaceChildren();
+    if (!pack) { renderEmpty(root, null); return; }
+
+    var key = "fp.week." + hash(item.name + "=" + canonical);
+    var state = load(key);
+    state.blanks = state.blanks && typeof state.blanks === "object" ? state.blanks : {};
+    state.days = Array.isArray(state.days) ? state.days : [];
+
+    // Header
+    var head = el("header");
+    head.appendChild(el("p", "eyebrow", pack.from ? "This week from " + pack.from : "This week"));
+    head.appendChild(el("h1", null, pack.title || "This week"));
+    if (pack.weekOf !== null && pack.weekOf > 0) {
+      var d = new Date(pack.weekOf * 1000);
+      if (!isNaN(d)) head.appendChild(el("p", "week-of", "Week of " + d.toLocaleDateString(undefined, { month: "long", day: "numeric" })));
+    }
+    root.appendChild(head);
+    document.title = (pack.title ? pack.title + " · " : "") + "Front Pew";
+
+    // Sermon
+    if (pack.youtube) {
+      var wrap = el("div", "player");
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + pack.youtube;
+      f.title = "Sermon video";
+      f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      f.setAttribute("allow", "encrypted-media; picture-in-picture; fullscreen");
+      f.setAttribute("allowfullscreen", "");
+      f.setAttribute("loading", "lazy");
+      wrap.appendChild(f);
+      root.appendChild(wrap);
+    } else if (pack.link) {
+      var a = el("a", "watch-link", "Watch the sermon");
+      a.href = pack.link;
+      a.rel = "noopener noreferrer";
+      a.target = "_blank";
+      root.appendChild(a);
+    }
+
+    // Outline with fill-in blanks
+    if (pack.outline.length) {
+      var sec = el("section");
+      sec.appendChild(el("h2", null, "Follow along"));
+      var card = el("div", "card outline");
+      var saveTimer = null;
+      pack.outline.forEach(function (line, li) {
+        if (!line.trim()) { card.appendChild(el("div", "gap")); return; }
+        if (line.indexOf("# ") === 0) { card.appendChild(el("h3", null, line.slice(2).trim())); return; }
+        var p = el("p");
+        var bits = line.split(/_{3,}/);
+        bits.forEach(function (bit, bi) {
+          if (bit) p.appendChild(document.createTextNode(bit));
+          if (bi < bits.length - 1) {
+            var id = li + "-" + bi;
+            var inp = document.createElement("input");
+            inp.type = "text";
+            inp.className = "blank";
+            inp.maxLength = 80;
+            inp.autocomplete = "off";
+            inp.setAttribute("autocapitalize", "off");
+            inp.setAttribute("aria-label", "Fill in the blank");
+            inp.value = typeof state.blanks[id] === "string" ? state.blanks[id] : "";
+            var grow = function () { inp.style.width = Math.max(8, inp.value.length + 1) + "ch"; };
+            grow();
+            inp.addEventListener("input", function () {
+              grow();
+              if (inp.value) state.blanks[id] = inp.value; else delete state.blanks[id];
+              clearTimeout(saveTimer);
+              saveTimer = setTimeout(function () { save(key, state); }, 250);
+            });
+            p.appendChild(inp);
+          }
+        });
+        card.appendChild(p);
+      });
+      sec.appendChild(card);
+      root.appendChild(sec);
+    }
+
+    // Questions
+    if (pack.questions.length) {
+      var qs = el("section");
+      qs.appendChild(el("h2", null, "Talk about it"));
+      var qc = el("div", "card");
+      var ol = el("ol", "questions");
+      pack.questions.forEach(function (q) { ol.appendChild(el("li", null, q)); });
+      qc.appendChild(ol);
+      qs.appendChild(qc);
+      root.appendChild(qs);
+    }
+
+    // Five days
+    if (pack.days.length) {
+      var ds = el("section");
+      ds.appendChild(el("h2", null, "Read this week"));
+      var ul = el("ul", "days");
+      pack.days.forEach(function (day, i) {
+        var li = el("li");
+        var btn = el("button", "day");
+        btn.type = "button";
+        var on = state.days.indexOf(i) >= 0;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        var tick = el("span", "tick", on ? "✓" : "");
+        tick.setAttribute("aria-hidden", "true");
+        var txt = el("span", "day-text");
+        txt.appendChild(el("span", "day-label", "Day " + (i + 1)));
+        txt.appendChild(el("span", "day-ref", day.ref));
+        if (day.prompt) txt.appendChild(el("span", "day-prompt", day.prompt));
+        btn.appendChild(tick);
+        btn.appendChild(txt);
+        btn.addEventListener("click", function () {
+          var at = state.days.indexOf(i);
+          if (at >= 0) state.days.splice(at, 1); else state.days.push(i);
+          var now = at < 0;
+          btn.setAttribute("aria-pressed", now ? "true" : "false");
+          tick.textContent = now ? "✓" : "";
+          save(key, state);
+        });
+        li.appendChild(btn);
+        ul.appendChild(li);
+      });
+      ds.appendChild(ul);
+      root.appendChild(ds);
+    }
+
+    // Challenge
+    if (pack.challenge) {
+      var cs = el("section");
+      var cc = el("div", "challenge");
+      cc.appendChild(el("p", "eyebrow", "Live it"));
+      cc.appendChild(el("p", null, pack.challenge));
+      cs.appendChild(cc);
+      root.appendChild(cs);
+    }
+
+    // Actions
+    var act = el("div", "actions");
+    var open = el("a", "btn-primary", "Open in Front Pew");
+    open.href = appHref;
+    act.appendChild(open);
+    var get = el("a", "get-app", "Get Front Pew");
+    get.href = APP_STORE_URL;
+    act.appendChild(get);
+    root.appendChild(act);
+
+    root.appendChild(el("p", "privacy", "Nothing you type here leaves your phone."));
+  }
+
+  // Exposed for the node test harness only; harmless in a browser.
+  if (typeof window !== "undefined") window.__frontPewWeek = { decodePack: decodePack, rawParam: rawParam, youtubeId: youtubeId, safeWeb: safeWeb };
+
+  render();
+  window.addEventListener("hashchange", render);
+})();
+</script>
+</body>
+</html>
